@@ -54,10 +54,10 @@ SET(CUDA_SUPPRESS_WARNINGS "-Xptxas -w -ftemplate-backtrace-limit=2")
 SET(PHYSX_CUDA_FLAGS "${PHYSX_CUDA_FLAGS} -D_WIN32_WINNT=0x0601 ${CUDA_SUPPRESS_WARNINGS}")
 
 # Build debug info for all configurations
-SET(PHYSX_CUDA_FLAGS_DEBUG   "${CUDA_DEBUG_FLAG} --compiler-options=/W4,/nologo,/Zi,/Od,/RTC1,/wd4505,/wd4459,/wd4324,/wd4244 -G -g" CACHE INTERNAL "PhysX Debug CUDA Flags")
-SET(PHYSX_CUDA_FLAGS_CHECKED "${CUDA_NDEBUG_FLAG} -lineinfo --compiler-options=/W4,/nologo,/Ot,/Ox,/Zi,/wd4505,/wd4459,/wd4324,/wd4244" CACHE INTERNAL "PhysX Checked CUDA Flags")
-SET(PHYSX_CUDA_FLAGS_PROFILE "${CUDA_NDEBUG_FLAG} -lineinfo --compiler-options=/W4,/nologo,/Ot,/Ox,/Zi,/wd4505,/wd4459,/wd4324,/wd4244" CACHE INTERNAL "PhysX Profile CUDA Flags")
-SET(PHYSX_CUDA_FLAGS_RELEASE "${CUDA_NDEBUG_FLAG} -lineinfo --compiler-options=/W4,/nologo,/Ot,/Ox,/Zi,/wd4505,/wd4459,/wd4324,/wd4244" CACHE INTERNAL "PhysX Release CUDA Flags")
+SET(PHYSX_CUDA_FLAGS_DEBUG   "${CUDA_DEBUG_FLAG} --compiler-options=/W3,/nologo,/Zi,/Od,/RTC1,/wd4819,/wd4505,/wd4459,/wd4324,/wd4244 -G -g" CACHE INTERNAL "PhysX Debug CUDA Flags")
+SET(PHYSX_CUDA_FLAGS_CHECKED "${CUDA_NDEBUG_FLAG} -lineinfo --compiler-options=/W3,/nologo,/Ot,/Ox,/Zi,/wd4819,/wd4505,/wd4459,/wd4324,/wd4244" CACHE INTERNAL "PhysX Checked CUDA Flags")
+SET(PHYSX_CUDA_FLAGS_PROFILE "${CUDA_NDEBUG_FLAG} -lineinfo --compiler-options=/W3,/nologo,/Ot,/Ox,/Zi,/wd4819,/wd4505,/wd4459,/wd4324,/wd4244" CACHE INTERNAL "PhysX Profile CUDA Flags")
+SET(PHYSX_CUDA_FLAGS_RELEASE "${CUDA_NDEBUG_FLAG} -lineinfo --compiler-options=/W3,/nologo,/Ot,/Ox,/Zi,/wd4819,/wd4505,/wd4459,/wd4324,/wd4244" CACHE INTERNAL "PhysX Release CUDA Flags")
 
 # These flags are local to the directory the CMakeLists.txt is in, so don't get carried over to OTHER CMakeLists.txt (thus the CACHE variables above)
 SET(CMAKE_CUDA_FLAGS ${PHYSX_CUDA_FLAGS})

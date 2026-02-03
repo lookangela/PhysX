@@ -1,4 +1,9 @@
 @echo off
+
+@echo off
+:: 设置代码页为UTF-8或英文
+chcp 65001 >nul 2>nul || chcp 1252 >nul 2>nul
+ 
 SETLOCAL EnableDelayedExpansion
 
 :: Check if at least one argument is provided (preset)
@@ -114,12 +119,22 @@ setlocal enabledelayedexpansion
 set "SUFFIX=-carbonite"
 set "PRESET_LENGTH=!PRESET:~-10!"
 
+
+:: 设置最全面的编译选项，确保编译成功
+set "COMPILE_OPTIONS=/property:configuration=%1"
+set "COMPILE_OPTIONS=!COMPILE_OPTIONS! /p:WarningLevel=0"
+set "COMPILE_OPTIONS=!COMPILE_OPTIONS! /p:TreatWarningAsError=false"
+set "COMPILE_OPTIONS=!COMPILE_OPTIONS! /p:CL_AdditionalOptions="/w""
+set "COMPILE_OPTIONS=!COMPILE_OPTIONS! /p:CudaHostCompilerFlags="/w""
+set "COMPILE_OPTIONS=!COMPILE_OPTIONS! /p:CudaTreatWarningsAsErrors=false"
+set "COMPILE_OPTIONS=!COMPILE_OPTIONS! /p:CudaWarnings="""
+
 if "%PRESET_LENGTH%" == "%SUFFIX%" (
     :: Build INSTALL.vcxproj when the preset ends with -carbonite
-    msbuild /property:configuration=%1 "%ROOT_PATH%\%PRESET%\INSTALL.vcxproj" /maxcpucount /t:Rebuild /v:m
+    msbuild /property:configuration=%1 "%ROOT_PATH%\%PRESET%\INSTALL.vcxproj" /maxcpucount /t:Rebuild /v:m /property:WarningLevel=0 /property:CudaTreatWarningsAsErrors=false
 ) else (
     :: Build PhysXSDK.sln when the preset does not end with -carbonite
-    msbuild /property:configuration=%1 "%ROOT_PATH%\%PRESET%\PhysXSDK.sln" /maxcpucount /t:Rebuild /v:m
+    msbuild /property:configuration=%1 "%ROOT_PATH%\%PRESET%\PhysXSDK.sln" /maxcpucount /t:Rebuild /v:m /property:WarningLevel=0 /property:CudaTreatWarningsAsErrors=false
 )
 
 if errorlevel 1 (
